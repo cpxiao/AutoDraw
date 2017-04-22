@@ -27,6 +27,7 @@ import java.util.List;
  * @author cpxiao on 2017/3/1.
  * @version 2017/3/17更新打印log信息
  * @version 2017/4/17extends AppCompatActivity
+ * @version 2017/4/20修改test devices
  */
 public class BaseActivity extends AppCompatActivity {
     protected static final boolean DEBUG = Config.DEBUG;
@@ -112,15 +113,10 @@ public class BaseActivity extends AppCompatActivity {
 
         });
         if (DEBUG) {
-            //            AdSettings.addTestDevice("7d7fcc8ff3a053e48671f85990f1ab6d");//nexus 5
-            //            AdSettings.addTestDevice("55c4f301d7c1183f1fa6ede6b3f2fe2e");//坚果
             //            AdSettings.addTestDevice("e6298923190b4e7e7119e0f14c44f097");//坚果
 
             // 如果想要添加多台测试设备，只需创建一个字符串列表，添加到加载广告前的位置：
             List<String> testDevices = new ArrayList<>();
-            testDevices.add("7d7fcc8ff3a053e48671f85990f1ab6d");
-            testDevices.add("55c4f301d7c1183f1fa6ede6b3f2fe2e");
-            testDevices.add("e6298923190b4e7e7119e0f14c44f097");
             testDevices.add("13dcd61d55ae35bd8691c6060d923c51");//坚果 2017/4/17
             AdSettings.addTestDevices(testDevices);
         }
@@ -206,7 +202,6 @@ public class BaseActivity extends AppCompatActivity {
         if (DEBUG) {
             adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)// All emulators
-                    //                    .addTestDevice("E89B10531C8CCB95C447A97261F6AA0E")//坚果
                     .addTestDevice("E1E0F81BBFC3DDCC151FE415046C6E40")//坚果
                     .build();
         } else {

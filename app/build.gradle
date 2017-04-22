@@ -9,8 +9,8 @@ android {
         applicationId "com.cpxiao.autodraw"
         minSdkVersion 9 //使用freeline测试的时候最低14，之后改回对应版本9
         targetSdkVersion 25
-        versionCode 110
-        versionName "1.1.0"
+        versionCode 111
+        versionName "1.1.1"
     }
     buildTypes {
         release {
@@ -71,12 +71,10 @@ dependencies {
     compile project(':AndroidUtils:library')
     compile project(':gamelib')
 
-//    compile fileTree(dir: 'libs', include: ['*.jar'])
-//    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+//    compile 'com.android.support:appcompat-v7:25.2.0'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.2.0'
 //    testCompile 'junit:junit:4.12'
 }
+
+apply plugin: 'com.google.gms.google-services'
