@@ -18,6 +18,7 @@ import com.facebook.ads.AdSettings;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
 import com.google.android.gms.ads.AdRequest;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,6 @@ import java.util.List;
 
 /**
  * @author cpxiao on 2017/3/1.
- * @version 2017/3/17更新打印log信息
- * @version 2017/4/17extends AppCompatActivity
  * @version 2017/4/20修改test devices
  */
 public class BaseActivity extends AppCompatActivity {
@@ -44,10 +43,23 @@ public class BaseActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //隐藏状态栏部分（电池电量、时间等部分）
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -117,7 +129,7 @@ public class BaseActivity extends AppCompatActivity {
 
             // 如果想要添加多台测试设备，只需创建一个字符串列表，添加到加载广告前的位置：
             List<String> testDevices = new ArrayList<>();
-            testDevices.add("13dcd61d55ae35bd8691c6060d923c51");//坚果 2017/4/17
+            testDevices.add("cbc57fba14fc72e5a1c42ec9b05f7bc0");//坚果 2017/6/20
             AdSettings.addTestDevices(testDevices);
         }
         if (DEBUG) {

@@ -21,11 +21,15 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
 
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
+
     /**
      * Ads Start
      */
     //Facebook广告 start
     compile files('libs/AudienceNetwork_v4.7.jar')
+//    compile 'com.facebook.android:audience-network-sdk:4.+'
     //Facebook广告 end
 
     //AdMob广告 start
