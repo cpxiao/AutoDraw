@@ -9,8 +9,8 @@ android {
         applicationId "com.cpxiao.autodraw"
         minSdkVersion 9 //使用freeline测试的时候最低14，之后改回对应版本9
         targetSdkVersion 25
-        versionCode 112
-        versionName "1.1.2"
+        versionCode 113
+        versionName "1.1.3"
     }
     buildTypes {
         release {
@@ -22,12 +22,7 @@ android {
 
     //多渠道打包
     productFlavors {
-//        debug_gp {
-//            minSdkVersion 14
-//        }
-        gp {
-            minSdkVersion 9
-        }
+        gp {}
     }
 
     productFlavors.all {
@@ -69,12 +64,23 @@ android {
 
 dependencies {
     compile project(':AndroidUtils:library')
-    compile project(':gamelib')
+    compile 'com.android.support:appcompat-v7:25.3.1'
 
-//    compile 'com.android.support:appcompat-v7:25.2.0'
-//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:25.2.0'
-//    testCompile 'junit:junit:4.12'
+    /**
+     * Ads Start
+     */
+    //友盟统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    //Facebook广告
+    compile files('libs/AudienceNetwork_v4.7.jar')
+//    compile 'com.facebook.android:audience-network-sdk:4.+'
+    //AdMob广告
+    compile 'com.google.firebase:firebase-ads:9.4.0'
+    /**
+     * Ads End
+     */
+
+    compile 'com.android.support:design:25.3.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

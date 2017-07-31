@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 
+import com.cpxiao.R;
 import com.cpxiao.gamelib.Config;
-import com.cpxiao.gamelib.R;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
@@ -43,8 +43,7 @@ public class BaseActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //隐藏状态栏部分（电池电量、时间等部分）
-        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -228,9 +227,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void addToLayout(View view) {
-        if (DEBUG) {
-            Log.d(TAG, "addToLayout: ");
-        }
         if (view == null) {
             return;
         }

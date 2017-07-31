@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.cpxiao.R;
 import com.cpxiao.gamelib.Config;
 import com.cpxiao.gamelib.activity.BaseActivity;
 
