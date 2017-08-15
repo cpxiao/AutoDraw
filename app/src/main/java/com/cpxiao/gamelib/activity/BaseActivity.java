@@ -10,7 +10,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.cpxiao.R;
-import com.cpxiao.gamelib.Config;
+import com.cpxiao.AppConfig;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
@@ -29,8 +29,8 @@ import java.util.List;
  * @version 2017/4/20修改test devices
  */
 public class BaseActivity extends AppCompatActivity {
-    protected static final boolean DEBUG = Config.DEBUG;
-    protected final String TAG = "CPXIAO--" + getClass().getSimpleName();
+    protected static final boolean DEBUG = AppConfig.DEBUG;
+    protected final String TAG = getClass().getSimpleName();
 
     protected AdView mFbAdView;
     protected com.google.android.gms.ads.AdView mAdMobAdView;
@@ -62,9 +62,6 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (DEBUG) {
-            Log.d(TAG, "onDestroy: ");
-        }
         if (mFbAdView != null) {
             mFbAdView.destroy();
             mFbAdView = null;
@@ -103,14 +100,14 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onError(Ad ad, AdError error) {
                 if (DEBUG) {
-                    Log.d(TAG, "Fb -> " + "onError: " + error.getErrorCode() + "," + error.getErrorMessage());
+                    Log.d(TAG, "initFbAds: " + "onError: " + error.getErrorCode() + "," + error.getErrorMessage());
                 }
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
                 if (DEBUG) {
-                    Log.d(TAG, "Fb -> " + "onAdLoaded: ");
+                    Log.d(TAG, "initFbAds: " + "onAdLoaded: ");
                 }
                 addToLayout(mFbAdView);
             }
@@ -118,7 +115,14 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onAdClicked(Ad ad) {
                 if (DEBUG) {
-                    Log.d(TAG, "Fb -> " + "onAdClicked: ");
+                    Log.d(TAG, "initFbAds: " + "onAdClicked: ");
+                }
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                if (DEBUG) {
+                    Log.d(TAG, "onLoggingImpression: ");
                 }
             }
 
@@ -128,7 +132,7 @@ public class BaseActivity extends AppCompatActivity {
 
             // 如果想要添加多台测试设备，只需创建一个字符串列表，添加到加载广告前的位置：
             List<String> testDevices = new ArrayList<>();
-            testDevices.add("cbc57fba14fc72e5a1c42ec9b05f7bc0");//坚果 2017/6/20
+            testDevices.add("3bcc341340550569d910c92a2dae2677");
             AdSettings.addTestDevices(testDevices);
         }
         if (DEBUG) {
@@ -150,7 +154,9 @@ public class BaseActivity extends AppCompatActivity {
         initAdMobAds(placementId, com.google.android.gms.ads.AdSize.MEDIUM_RECTANGLE);
     }
 
+
     private void initAdMobAds(String unitId, com.google.android.gms.ads.AdSize adSize) {
+        Log.d(TAG, "initAdMobAds: -0000");
         if (DEBUG) {
             Log.d(TAG, "initAdMobAds: ");
         }
@@ -213,7 +219,7 @@ public class BaseActivity extends AppCompatActivity {
         if (DEBUG) {
             adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)// All emulators
-                    .addTestDevice("E1E0F81BBFC3DDCC151FE415046C6E40")//坚果
+                    .addTestDevice("67F59060394DB36B95B18F5EE5B5D735")
                     .build();
         } else {
             adRequest = new AdRequest.Builder()
@@ -232,7 +238,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         removeFromParent(view);
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.ads_layout);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layout_ads);
         layout.removeAllViews();
         layout.addView(view);
     }

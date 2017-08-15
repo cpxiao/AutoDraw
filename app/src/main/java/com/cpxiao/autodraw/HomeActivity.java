@@ -3,7 +3,6 @@ package com.cpxiao.autodraw;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -13,46 +12,76 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cpxiao.R;
-import com.cpxiao.gamelib.Config;
 import com.cpxiao.gamelib.activity.BaseActivity;
 
-public class MainActivity extends BaseActivity {
-
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final boolean DEBUG = Config.DEBUG;
+public class HomeActivity extends BaseActivity {
 
     private static final String URL_AUTO_DRAW = "https://www.autodraw.com/";
 
-    private WebView mWebView;
+    private ProgressBar mProgressBar;
     private TextView mLoadErrorView;
+    private Button mReloadAutoDrawBtn;
+    private Button mOfflineDrawBtn;
+    private WebView mWebView;
+    private OfflineDrawView mOfflineDrawView;
 
-    private boolean errorFlag = false;
+    /**
+     * 是否加载失败
+     */
+    private boolean isLoadWebViewError = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_home);
 
-        mWebView = (WebView) findViewById(R.id.web_view);
-        showWebView();
-        load();
-
+        mProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
         mLoadErrorView = (TextView) findViewById(R.id.load_error);
-        mLoadErrorView.setOnClickListener(new View.OnClickListener() {
+        mReloadAutoDrawBtn = (Button) findViewById(R.id.reloadBtn);
+        mOfflineDrawBtn = (Button) findViewById(R.id.offlineBtn);
+        mWebView = (WebView) findViewById(R.id.web_view);
+        mOfflineDrawView = (OfflineDrawView) findViewById(R.id.offline_draw_view);
+
+        mProgressBar.setVisibility(View.VISIBLE);
+        mLoadErrorView.setVisibility(View.GONE);
+        mReloadAutoDrawBtn.setVisibility(View.GONE);
+        mOfflineDrawBtn.setVisibility(View.GONE);
+        mWebView.setVisibility(View.INVISIBLE);
+        mOfflineDrawView.setVisibility(View.GONE);
+
+        mReloadAutoDrawBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                hideLoadErrorView();
-                showWebView();
-                load();
-                loadAds();
+            public void onClick(View v) {
+                mProgressBar.setVisibility(View.VISIBLE);
+                mLoadErrorView.setVisibility(View.GONE);
+                mReloadAutoDrawBtn.setVisibility(View.GONE);
+                mOfflineDrawBtn.setVisibility(View.GONE);
+                mWebView.setVisibility(View.INVISIBLE);
+                mOfflineDrawView.setVisibility(View.GONE);
+
+                loadWebView();
             }
         });
-        hideLoadErrorView();
+        mOfflineDrawBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mProgressBar.setVisibility(View.GONE);
+                mLoadErrorView.setVisibility(View.GONE);
+                mReloadAutoDrawBtn.setVisibility(View.GONE);
+                mOfflineDrawBtn.setVisibility(View.GONE);
+                mWebView.setVisibility(View.INVISIBLE);
+                mOfflineDrawView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        loadWebView();
+
+        loadAds();
     }
 
     /**
@@ -61,14 +90,15 @@ public class MainActivity extends BaseActivity {
     private void loadAds() {
         initFbAds50("132313060642929_132316300642605");
         initAdMobAds50("ca-app-pub-4157365005379790/9597022469");
+        initAdMobAds50("ca-app-pub-4157365005379790/6503955260");
     }
 
-    private void load() {
+    private void loadWebView() {
         if (mWebView == null) {
             return;
         }
         try {
-            errorFlag = false;
+            isLoadWebViewError = false;
             mWebView.setWebViewClient(new MyWebViewClient());
             mWebView.setInitialScale(1);
             mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
@@ -83,39 +113,12 @@ public class MainActivity extends BaseActivity {
             mWebView.loadUrl(URL_AUTO_DRAW);
         } catch (Exception e) {
             if (DEBUG) {
-                Log.d(TAG, "load: ");
+                Log.d(TAG, "loadWebView: ");
                 e.printStackTrace();
             }
         }
     }
 
-    private void showLoadErrorView() {
-        if (mLoadErrorView == null) {
-            return;
-        }
-        mLoadErrorView.setVisibility(View.VISIBLE);
-    }
-
-    private void hideLoadErrorView() {
-        if (mLoadErrorView == null) {
-            return;
-        }
-        mLoadErrorView.setVisibility(View.INVISIBLE);
-    }
-
-    private void showWebView() {
-        if (mWebView == null) {
-            return;
-        }
-        mWebView.setVisibility(View.VISIBLE);
-    }
-
-    private void hideWebView() {
-        if (mWebView == null) {
-            return;
-        }
-        mWebView.setVisibility(View.INVISIBLE);
-    }
 
     private class MyWebViewClient extends WebViewClient {
 
@@ -133,13 +136,17 @@ public class MainActivity extends BaseActivity {
                 Log.d(TAG, "onPageFinished: ");
             }
             super.onPageFinished(view, url);
-            if (errorFlag) {
-                showLoadErrorView();
-                hideWebView();
+            mProgressBar.setVisibility(View.GONE);
+            if (isLoadWebViewError) {
+                mWebView.setVisibility(View.GONE);
+                mLoadErrorView.setVisibility(View.VISIBLE);
+                mReloadAutoDrawBtn.setVisibility(View.VISIBLE);
+                mOfflineDrawBtn.setVisibility(View.VISIBLE);
             } else {
-                loadAds();
-                hideLoadErrorView();
-                showWebView();
+                mWebView.setVisibility(View.VISIBLE);
+                mLoadErrorView.setVisibility(View.GONE);
+                mReloadAutoDrawBtn.setVisibility(View.GONE);
+                mOfflineDrawBtn.setVisibility(View.GONE);
             }
         }
 
@@ -149,7 +156,7 @@ public class MainActivity extends BaseActivity {
                 Log.d(TAG, "onReceivedHttpError: ");
             }
             super.onReceivedHttpError(view, request, errorResponse);
-            errorFlag = true;
+            isLoadWebViewError = true;
         }
 
         @Override
@@ -158,7 +165,7 @@ public class MainActivity extends BaseActivity {
                 Log.d(TAG, "onReceivedError: ..");
             }
             super.onReceivedError(view, errorCode, description, failingUrl);
-            errorFlag = true;
+            isLoadWebViewError = true;
         }
 
 
@@ -168,7 +175,7 @@ public class MainActivity extends BaseActivity {
                 Log.d(TAG, "onReceivedError: ...");
             }
             super.onReceivedError(view, request, error);
-            errorFlag = true;
+            isLoadWebViewError = true;
         }
 
         @Override

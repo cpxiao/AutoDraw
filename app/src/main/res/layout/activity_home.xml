@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ProgressBar
+            android:id="@+id/loading_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingTop="100dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="50dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="30dp">
+
+            <TextView
+
+                android:id="@+id/load_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="30dp"
+                android:text="@string/load_error_msg"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="20sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/reloadBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reload"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/offlineBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/offline_draw"/>
+        </LinearLayout>
+
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <com.cpxiao.autodraw.OfflineDrawView
+            android:id="@+id/offline_draw_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </RelativeLayout>
+
+    <include layout="@layout/layout_ads_50"/>
+
+</LinearLayout>
