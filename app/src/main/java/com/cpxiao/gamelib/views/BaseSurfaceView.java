@@ -17,7 +17,8 @@ import com.cpxiao.AppConfig;
  * BaseSurfaceView
  *
  * @author cpxiao on 2016/5/31
- * @version 2017/8/15 修改
+ * @version 2017/3/21
+ *          2017/8/17 设置画笔
  */
 public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -27,7 +28,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
     /**
      * 背景色
      */
-    private int mBgColor = Color.WHITE;
+    private int mBackgroundColor = Color.WHITE;
 
     /**
      * SurfaceHolder用于控制SurfaceView的大小、格式等，用于监听SurfaceView的状态。
@@ -84,6 +85,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
         mPaint.setAntiAlias(true);//抗锯齿,一般加这个就可以了，加另外两个可能会卡
         //        mPaint.setDither(true);//防抖动
         //        mPaint.setFilterBitmap(true);//用来对位图进行滤波处理
+        mPaint.setTextAlign(Paint.Align.CENTER);
 
         /* 设置焦点 */
         setFocusable(true);
@@ -130,6 +132,11 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
     }
 
     /**
+     * 初始化控件
+     */
+    protected abstract void initWidget();
+
+    /**
      * 当SurfaceView状态Destroyed时响应的方法
      */
     @Override
@@ -138,11 +145,6 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
             Log.d(TAG, "surfaceChanged().........");
         }
     }
-
-    /**
-     * 初始化控件
-     */
-    protected abstract void initWidget();
 
 
     /**
@@ -156,11 +158,10 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
             if (mSurfaceHolder != null && mBitmapCache != null && mPaint != null) {
                 /* 使用SurfaceHolder.lockCanvas()获取SurfaceView的Canvas对象，并对画布加锁 */
                 canvas = mSurfaceHolder.lockCanvas();
-
                 /* 在绘制之前需要将画布清空，否则画布上会显示之前绘制的内容,以下三种方法效果一致 */
                 //                mCanvasCache.drawRect(0, 0, getWidth(), getHeight(), new Paint());
                 //                mCanvasCache.drawRGB(255, 255, 255);
-                mCanvasCache.drawColor(mBgColor);
+                mCanvasCache.drawColor(mBackgroundColor);
                 drawCache();
 
                 if (canvas != null) {
@@ -179,13 +180,12 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
     }
 
     /**
-     * 设置背景色
+     * 设置背景色，注意要设置色值而非资源id值
      *
-     * @param color int,注意不是设置资源id，要将资源转化为色值
+     * @param color color
      */
     protected void setBgColor(int color) {
-        mBgColor = color;
+        mBackgroundColor = color;
     }
-
 
 }

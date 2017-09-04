@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Auto Draw</string>
     <!--<string name="action_settings">Settings</string>-->
-    <string name="load_error_msg">Load Error !\n Please check the network !</string>
+    <string name="load_error_msg">Load Error !\n Please check the network .</string>
     <string name="offline_draw">Offline Drawing</string>
     <string name="reload">Reload</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="quit_msg">Quit the Application?</string>
 </resources>
