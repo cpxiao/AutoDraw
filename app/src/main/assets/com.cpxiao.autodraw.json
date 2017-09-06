@@ -27,33 +27,81 @@
       },
       {
         "ad_position": 1,
-        "ad_type": 2,
-        "ad_size": 50,
-        "place_id": "ca-app-pub-4157365005379790/9597022469"
+        "ad_type": 3,
+        "ad_size": 100,
+        "place_id": "132313060642929_193991681141733"
+      },
+      {
+        "ad_position": 1,
+        "ad_type": 4,
+        "ad_size": 100,
+        "place_id": "132313060642929_170197080187860"
       },
       {
         "ad_position": 1,
         "ad_type": 2,
         "ad_size": 50,
-        "place_id": "ca-app-pub-4157365005379790/6503955260"
+        "place_id": "ca-app-pub-4157365005379790/8263455265"
       },
       {
         "ad_position": 1,
         "ad_type": 3,
         "ad_size": 50,
-        "place_id": "132313060642929_193401634534071"
-      },
-      {
-        "ad_position": 1,
-        "ad_type": 4,
-        "ad_size": 50,
-        "place_id": "132313060642929_132316300642605"
+        "place_id": "132313060642929_193991681141733"
       },
       {
         "ad_position": 1,
         "ad_type": 4,
         "ad_size": 50,
         "place_id": "132313060642929_170197080187860"
+      },
+      {
+        "ad_position": 2,
+        "ad_type": 2,
+        "ad_size": 100,
+        "place_id": "ca-app-pub-4157365005379790/9597022469"
+      },
+      {
+        "ad_position": 2,
+        "ad_type": 2,
+        "ad_size": 100,
+        "place_id": "ca-app-pub-4157365005379790/6503955260"
+      },
+      {
+        "ad_position": 2,
+        "ad_type": 3,
+        "ad_size": 100,
+        "place_id": "132313060642929_193401634534071"
+      },
+      {
+        "ad_position": 2,
+        "ad_type": 4,
+        "ad_size": 100,
+        "place_id": "132313060642929_132316300642605"
+      },
+      {
+        "ad_position": 2,
+        "ad_type": 2,
+        "ad_size": 50,
+        "place_id": "ca-app-pub-4157365005379790/9597022469"
+      },
+      {
+        "ad_position": 2,
+        "ad_type": 2,
+        "ad_size": 50,
+        "place_id": "ca-app-pub-4157365005379790/6503955260"
+      },
+      {
+        "ad_position": 2,
+        "ad_type": 3,
+        "ad_size": 50,
+        "place_id": "132313060642929_193401634534071"
+      },
+      {
+        "ad_position": 2,
+        "ad_type": 4,
+        "ad_size": 50,
+        "place_id": "132313060642929_132316300642605"
       }
     ]
   },

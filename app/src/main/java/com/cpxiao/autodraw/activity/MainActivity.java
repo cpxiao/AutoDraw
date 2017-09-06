@@ -24,10 +24,8 @@ public class MainActivity extends BaseZAdsActivity {
 
     public void loadAd() {
         initAdMobAds100("ca-app-pub-4157365005379790/8263455265");
-        initAdMobAds100("ca-app-pub-4157365005379790/9597022469");
-        initFbAds90("132313060642929_132316300642605");
         initFbAds90("132313060642929_170197080187860");
-        initZAds(ZAdPosition.POSITION_HOME);
+        loadZAds(ZAdPosition.POSITION_MAIN);
     }
 
 }

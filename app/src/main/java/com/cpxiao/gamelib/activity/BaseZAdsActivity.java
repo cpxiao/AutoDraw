@@ -69,7 +69,7 @@ public abstract class BaseZAdsActivity extends BaseAdsActivity {
         super.onDestroy();
     }
 
-    protected void initZAds(int zAdPosition) {
+    public void loadZAds(int zAdPosition) {
         LinearLayout layout = (LinearLayout) findViewById(R.id.layout_ads);
         ZAdManager.getInstance().loadAd(getApplicationContext(), zAdPosition, layout);
     }

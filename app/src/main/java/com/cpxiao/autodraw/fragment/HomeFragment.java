@@ -17,16 +17,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cpxiao.R;
-import com.cpxiao.autodraw.activity.MainActivity;
 import com.cpxiao.autodraw.views.OfflineDrawView;
-import com.cpxiao.gamelib.activity.BaseZAdsActivity;
-import com.cpxiao.gamelib.fragment.BaseFragment;
+import com.cpxiao.gamelib.fragment.BaseZAdsFragment;
+import com.cpxiao.zads.core.ZAdPosition;
 
 /**
  * @author cpxiao on 2017/09/04.
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseZAdsFragment {
     private static final String URL_AUTO_DRAW = "https://www.autodraw.com/";
 
     private ProgressBar mProgressBar;
@@ -51,6 +50,8 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
+        loadAds();
+
         mProgressBar = (ProgressBar) view.findViewById(R.id.loading_progressbar);
         mLoadErrorView = (TextView) view.findViewById(R.id.load_error);
         mReloadAutoDrawBtn = (Button) view.findViewById(R.id.reloadBtn);
@@ -104,14 +105,8 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    /**
-     * 广告加载时机有待考察：在页面加载完成之后再加载广告
-     */
     private void loadAds() {
-        if (getHoldingActivity() instanceof BaseZAdsActivity){
-            MainActivity activity  = (MainActivity) getHoldingActivity();
-            activity.loadAd();
-        }
+        loadZAds(ZAdPosition.POSITION_HOME);
     }
 
     private void loadWebView() {

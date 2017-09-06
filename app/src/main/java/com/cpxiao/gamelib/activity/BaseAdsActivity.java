@@ -30,7 +30,7 @@ public abstract class BaseAdsActivity extends BaseAppActivity {
     protected static final boolean DEBUG = AppConfig.DEBUG;
     protected final String TAG = getClass().getSimpleName();
 
-    protected final String TEST_DEVICE_FB = "67F59060394DB36B95B18F5EE5B5D735";
+    protected final String TEST_DEVICE_FB = "3bcc341340550569d910c92a2dae2677";
     protected final String TEST_DEVICE_ADMOB = "67F59060394DB36B95B18F5EE5B5D735";
 
     protected AdView mFbAdView;

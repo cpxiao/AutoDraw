@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.cpxiao.zads.TestDevice;
 import com.cpxiao.zads.ads.core.Advertisement;
 import com.cpxiao.zads.ads.core.BaseZAd;
 import com.cpxiao.zads.core.AdConfigBean;
@@ -26,7 +27,7 @@ import java.util.Queue;
  */
 public class AdMobBannerAd extends BaseZAd {
     private static final String TAG = "AdMobBannerAd";
-    private static final String TEST_DEVICE = "67F59060394DB36B95B18F5EE5B5D735";
+    private static final String TEST_DEVICE = TestDevice.TEST_DEVICE_ADMOB;
 
     private AdView mAdManager;
 
