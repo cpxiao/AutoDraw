@@ -1,6 +1,7 @@
 package com.cpxiao.autodraw.views;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -21,11 +22,11 @@ import java.util.List;
 
 public class OfflineDrawView extends BaseSurfaceView {
 
-    private List<Path> mPathList = new ArrayList<>();
+    private List<DrawingPath> mDrawingPathList = new ArrayList<>();
     private Path mCurrentPath;
 
     private CircleBtn mRBCircleBtn;
-    private CircleBtn[] mCircleList;
+    private CircleBtn[] mCircleArray;
     private boolean mCircleListShown = false;
 
     private static Paint mCirclePaint = new Paint();
@@ -60,43 +61,36 @@ public class OfflineDrawView extends BaseSurfaceView {
         mRBCircleBtn = new CircleBtn();
 
         mRBCircleBtn.cX = cX;
-        mRBCircleBtn.cY = 0.9F * mViewHeight;
+        mRBCircleBtn.cY = mViewHeight - 140 * Resources.getSystem().getDisplayMetrics().density;
         mRBCircleBtn.r = r;
         mRBCircleBtn.color = Color.BLUE;
 
 
         //        int[] colorList = {Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED};
         String[] colorList = getResources().getStringArray(R.array.colorList);
-        int mColorCount = colorList.length;
-        mCircleList = new CircleBtn[mColorCount];
-        for (int i = 0; i < mColorCount; i++) {
+        int colorCount = colorList.length;
+        mCircleArray = new CircleBtn[colorCount];
+        for (int i = 0; i < colorCount; i++) {
             CircleBtn circleBtn = new CircleBtn();
             circleBtn.cX = cX;
             circleBtn.cY = mRBCircleBtn.cY - (i + 1) * r * 2;
             circleBtn.r = 0.8F * r;
             circleBtn.color = Color.parseColor(colorList[i]);
-            mCircleList[i] = circleBtn;
+            mCircleArray[i] = circleBtn;
         }
     }
 
     @Override
     public void drawCache() {
-
-        //        mCanvasCache.drawColor(Color.RED);
-        //        mPaint.setColor(Color.BLUE);
-        //        mPaint.setStrokeWidth(0.02F * mViewWidth);
-
-        mPaint.setColor(mRBCircleBtn.color);
-        for (Path p : mPathList) {
-            mCanvasCache.drawPath(p, mPaint);
+        for (DrawingPath drawingPath : mDrawingPathList) {
+            drawingPath.onDraw(mCanvasCache, mPaint);
         }
 
         //绘制颜色按钮
         mRBCircleBtn.draw(mCanvasCache, mCirclePaint);
         if (mCircleListShown) {
-            for (CircleBtn c : mCircleList) {
-                c.draw(mCanvasCache, mCirclePaint);
-
+            for (CircleBtn circleBtn : mCircleArray) {
+                circleBtn.draw(mCanvasCache, mCirclePaint);
             }
         }
     }
@@ -109,8 +103,10 @@ public class OfflineDrawView extends BaseSurfaceView {
         int eventY = (int) event.getY();
         if (action == MotionEvent.ACTION_DOWN) {
             mCurrentPath = new Path();
+            int color = mRBCircleBtn.color;
+            DrawingPath drawingPath = new DrawingPath(mCurrentPath, color);
             mCurrentPath.moveTo(eventX, eventY);
-            mPathList.add(mCurrentPath);
+            mDrawingPathList.add(drawingPath);
         } else if (action == MotionEvent.ACTION_MOVE) {
             mCurrentPath.lineTo(eventX, eventY);
         } else if (action == MotionEvent.ACTION_UP) {
@@ -123,7 +119,7 @@ public class OfflineDrawView extends BaseSurfaceView {
                 mCircleListShown = !mCircleListShown;
             } else {
                 if (mCircleListShown) {
-                    for (CircleBtn c : mCircleList) {
+                    for (CircleBtn c : mCircleArray) {
                         if (c.isSelected(eventX, eventY)) {
                             mRBCircleBtn.color = c.color;
                         }
@@ -156,6 +152,32 @@ public class OfflineDrawView extends BaseSurfaceView {
             canvas.drawCircle(cX, cY, 0.85F * r, paint);
             paint.setAlpha(255);
             canvas.drawCircle(cX, cY, 0.76F * r, paint);
+        }
+    }
+
+    private static class DrawingPath {
+        private Path mPath;
+        private int mColor;
+
+        private DrawingPath() {
+        }
+
+        DrawingPath(Path path, int color) {
+            mPath = path;
+            mColor = color;
+        }
+
+        public void setPath(Path path) {
+            mPath = path;
+        }
+
+        public void setColor(int color) {
+            mColor = color;
+        }
+
+        void onDraw(Canvas canvas, Paint paint) {
+            paint.setColor(mColor);
+            canvas.drawPath(mPath, paint);
         }
     }
 }

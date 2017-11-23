@@ -28,4 +28,9 @@ public class MainActivity extends BaseZAdsActivity {
         loadZAds(ZAdPosition.POSITION_MAIN);
     }
 
+    @Override
+    protected void onDestroy() {
+        ZAdManager.getInstance().destroyAllPosition(getApplicationContext());
+        super.onDestroy();
+    }
 }

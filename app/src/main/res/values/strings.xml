@@ -7,5 +7,5 @@
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="quit_msg">Quit the Application?</string>
+    <string name="quit_msg">Quit the Application ?</string>
 </resources>
