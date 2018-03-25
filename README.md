@@ -1,6 +1,7 @@
 # AutoDraw
 Mini App
 
-https://www.autodraw.com
 
-Google App Store下架了，停止维护...
+网址：https://www.autodraw.com
+
+因侵权下架了，停止维护...
